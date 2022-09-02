@@ -29,7 +29,6 @@ urlpatterns = [
 ]
 
 handler404 = 'core.views.page_not_found'
-handler403csrf = 'core.views.csrf_failure'
 handler500 = 'core.views.internal_server_error'
 
 if settings.DEBUG:
