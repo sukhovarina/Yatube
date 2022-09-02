@@ -66,7 +66,7 @@ def post_detail(request, post_id):
         'post': post,
         'author': author,
         'form': form,
-        'comment': comment,  
+        'comment': comment,
     }
     return render(request, template, context)
 
