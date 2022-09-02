@@ -1,12 +1,12 @@
 from http import HTTPStatus
+
 from django import forms
 from django.conf import settings
-from django.core.cache import cache
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from posts.models import Group, Post, Comment, Follow
+from posts.models import Comment, Follow, Group, Post
 
 User = get_user_model()
 
@@ -255,7 +255,7 @@ class PostViewsTest(TestCase):
                 user=self.user, author=self.follow_author
             ).exists()
         )
-    
+
     def test_new_post_in_correct_follow_pages(self):
         """Новая запись автора появляется в ленте подписчиков."""
         self.authorized_client.get(reverse(

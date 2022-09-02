@@ -4,10 +4,11 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_cookie
 
 from .forms import CommentForm, PostForm
-from .models import Group, Post, User, Follow
+from .models import Follow, Group, Post, User
 from .utils import paginator_page
 
 CACHE_TIME = 20
+
 
 @cache_page(CACHE_TIME, key_prefix='index_page')
 @vary_on_cookie
@@ -65,7 +66,7 @@ def post_detail(request, post_id):
         'post': post,
         'author': author,
         'form': form,
-        'comment': comment,   
+        'comment': comment,  
     }
     return render(request, template, context)
 
@@ -74,7 +75,7 @@ def post_create(request):
     template = 'posts/create_post.html'
     form = PostForm(
         request.POST or None,
-        files = request.FILES or None,
+        files=request.FILES or None,
     )
     if form.is_valid():
         post = form.save(commit=False)
