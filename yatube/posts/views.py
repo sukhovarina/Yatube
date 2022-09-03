@@ -130,8 +130,8 @@ def follow_index(request):
     follows = Follow.objects.filter(user=request.user)
     post_list = []
     for follow in follows:
-       authorPosts = Post.objects.filter(author=follow.author)
-       for authorPost in authorPosts:
+        authorPosts = Post.objects.filter(author=follow.author)
+        for authorPost in authorPosts:
             post_list.append(authorPost)
     page_obj = paginator_page(request, post_list)
     template = 'posts/index.html'
