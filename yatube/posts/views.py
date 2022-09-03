@@ -140,6 +140,8 @@ def follow_index(request):
 
 
 def profile_follow(request, username):
+    if not request.user.is_authenticated:
+        return redirect('/auth/login', request.user.username)
     user = request.user
     author = get_object_or_404(User, username=username)
     if request.user != author:
