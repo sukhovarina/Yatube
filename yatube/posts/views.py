@@ -13,7 +13,7 @@ CACHE_TIME = 20
 @cache_page(CACHE_TIME, key_prefix='index_page')
 @vary_on_cookie
 def index(request):
-    posts = Post.objects.all().order_by('-pub_date')
+    posts = Post.objects.all()
     template = 'posts/index.html'
     page_obj = paginator_page(request, posts)
     context = {
@@ -25,7 +25,6 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    template = 'posts/group_list.html'
     posts = Post.objects.all()
     page_obj = paginator_page(request, posts)
     context = {
@@ -33,6 +32,7 @@ def group_posts(request, slug):
         'posts': posts,
         'page_obj': page_obj,
     }
+    template = 'posts/group_list.html'
     return render(request, template, context)
 
 
@@ -127,12 +127,7 @@ def add_comment(request, post_id):
 def follow_index(request):
     if not request.user.is_authenticated:
         return redirect('/auth/login', request.user.username)
-    follows = Follow.objects.filter(user=request.user)
-    post_list = []
-    for follow in follows:
-        authorPosts = Post.objects.filter(author=follow.author)
-        for authorPost in authorPosts:
-            post_list.append(authorPost)
+    post_list = Post.objects.filter(author__following__user=request.user)
     page_obj = paginator_page(request, post_list)
     template = 'posts/index.html'
     context = {'page_obj': page_obj}
