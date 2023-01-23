@@ -14,3 +14,19 @@
 Python 3.7,
 Django 2.2,
 Unittest
+
+# Как запустить проект
+1. Клонировать репозиторий и перейти в него в командной строке:
+git clone https://github.com/sukhovarina/Yatube.git
+
+2. Cоздать и активировать виртуальное окружение:
+python -m venv env source venv/Scripts/activate
+
+3. Установить зависимости из файла requirements.txt:
+python -m pip install --upgrade pip pip install -r requirements.txt
+
+4. Выполнить миграции:
+python manage.py migrate
+
+5. Запустить проект:
+python manage.py runserver
